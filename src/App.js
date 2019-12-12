@@ -181,6 +181,8 @@ import {
 // Import Google Map components
 import Map from "./components/Map";
 
+import "./assets/bootstrap/bootstrap.min.css";
+
 // Import Internationalization file
 // import "@ui5/webcomponents/dist/json-imports/i18n.js";
 // NOTE: This is only required if using the app in a production scenario. It allows
@@ -195,7 +197,7 @@ import Map from "./components/Map";
 // OData polling configuration
 const ODATA_FETCH_DELAY = 2500; // Number of milliseconds between OData fetching calls
 // const ALERT_DATA_URL = "https://metdemot1-iflmap.avtsbhf.eu1.hana.ondemand.com/gw/odata/SAP/EUP_ODATA_ALERTS_COPY;v=1/CNG_AlertSet?$format=json";
-const ALERT_DATA_URL = "https://braiden.net/sap/coldchain-ui/test-backend-ext.json";
+const ALERT_DATA_URL = "https://braiden.net/sap/coldchain-ui/backend/ext-alert.backup.json";
 // I861648:12Google@4 [ -----REMOVE THIS LINE----- ]
 const PALLET_DATA_URL = "";
 
@@ -206,6 +208,8 @@ const WARN_VALUE_MIN = 40;
 const WARN_VALUE_MAX = 49.99;
 const DANGER_VALUE_MIN = 50;
 const DANGER_VALUE_MAX = 120;
+
+const torBudget = 30; // Total number of minutes
 
 // Debug configuration (THIS SHOULD BE REMOVED LATER)
 const debug_temperature_degrees_1 = 38.37;
@@ -237,7 +241,7 @@ export default class App extends React.Component {
     }
 
     componentDidMount = ()=> {
-        console.log("App component mounted!");
+        // console.log("App component mounted!");
         this.fetchPalletData();
         this.alertFlashingAnimationInterval = setInterval(()=>{
             this.fetchPalletData();
@@ -252,13 +256,13 @@ export default class App extends React.Component {
         const xhr = new XMLHttpRequest();
         xhr.addEventListener("load", ()=> {
             const results = JSON.parse(xhr.responseText).d.results;
-            console.log(results);
+            // console.log(results);
             let microBarChartData = [];
             for (let pallet of results) {
                 microBarChartData.push({label: pallet["Deviceid"], value: pallet["Kpivalue"]}) // [{label: "Pallet 1", value: 10}]
             }
             microBarChartData.push({label: "FIXED_LENGTH_DATAPOINT", value: DANGER_VALUE_MAX});
-            console.warn(microBarChartData);
+            // console.warn(microBarChartData);
             microBarChartData.push();
             this.setState({
                 palletData: results,
@@ -483,7 +487,7 @@ export default class App extends React.Component {
                         <p>Pallets being retrieved from OData service:</p>
                         <ul>
                             {this.state.palletData.map((pallet)=>
-                                <li>{pallet["Devicetitle"]} (temperature is currently {pallet["Kpivalue"]} degrees {pallet["Kpiuom"]}, TOR is {pallet["Tor"]} minutes)</li>
+                                <li key={pallet["Devicetitle"]}>{pallet["Devicetitle"]} (temperature is currently {pallet["Kpivalue"]} degrees {pallet["Kpiuom"]}, TOR is {pallet["Tor"]} minutes)</li>
                             )}
                         </ul>
                     </Tab>
