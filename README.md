@@ -1,6 +1,6 @@
 [![Build Status](https://img.shields.io/github/forks/Braiden-Psiuk/coldchain-ui)](https://github.com/Braiden-Psiuk/coldchain-ui) [![Build Status](https://img.shields.io/github/stars/Braiden-Psiuk/coldchain-ui)](https://github.com/Braiden-Psiuk/coldchain-ui) [![License](https://img.shields.io/github/license/Braiden-Psiuk/coldchain-ui)](https://github.com/Braiden-Psiuk/coldchain-ui)
 
-# Coldchain UI <img src="https://user-images.githubusercontent.com/30049905/70743980-d637d980-1cee-11ea-9aec-ab5a0bc41b80.png" alt="Cold Chain UI Logo" width="64px" height="64px"/>
+# Coldchain UI <img src="https://user-images.githubusercontent.com/30049905/70743980-d637d980-1cee-11ea-9aec-ab5a0bc41b80.png" alt="Cold Chain UI Logo" width="100px" height="100px"/>
 Demo UI for the Coldchain Track and Trace scenario, based on the popular React framework.
 *This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)*
 
