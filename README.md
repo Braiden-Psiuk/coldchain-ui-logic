@@ -2,7 +2,9 @@
 
 # Coldchain UI
 Demo UI for the Coldchain Track and Trace scenario, based on the popular React framework.
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+*This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)*
+
+![logo](./.ghimages/logo.png)
 
 ## Getting started
 1. Make sure you have a recent copy of Node.js. [**Node version 12.3.0**](https://nodejs.org/download/release/v12.3.0/) was used during development. *An equal or higher version will most likely work.*
@@ -26,6 +28,10 @@ Optionally, here's a Bash one-liner that sets up everything for you:
 git clone https://github.com/Braiden-Psiuk/coldchain-ui.git && cd coldchain-ui && npm i && npm start
 ```
 The app should now be accessable at [**localhost:3000**](localhost:3000).
+
+**NOTE:** Most modern browsers will block access to the external OData resources required for this app to function properly. This is due to CORS policies. There are two ways to resolve this:
+- Follow this quick guide to [Enable CORS in Chrome on your OS of choice](https://alfilatov.com/posts/run-chrome-without-cors/)
+- Configure custom OData servers to send an *Access-Control-Allow-Origin* header in their responses
 
 ## 🚧 Security Information 🚧
 The included Google Maps API key used in this application is not intended for production use. The key has been restricted and is only usable if the application is being served from http://localhost. If you deploy the application to a remote server, the provided API key will no longer work.
