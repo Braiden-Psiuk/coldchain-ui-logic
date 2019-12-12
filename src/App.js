@@ -183,6 +183,8 @@ import Map from "./components/Map";
 
 import "./assets/bootstrap/bootstrap.min.css";
 
+import * as moment from "moment";
+
 // Import Internationalization file
 // import "@ui5/webcomponents/dist/json-imports/i18n.js";
 // NOTE: This is only required if using the app in a production scenario. It allows
@@ -333,6 +335,7 @@ export default class App extends React.Component {
     render() {
         return (
             <ThemeProvider>
+                <p>{moment.duration(1, "year").toISOString()}</p>
                 <Shellbar logo={<img alt="SAP" src="//unpkg.com/fundamental-styles/dist/images/sap-logo.png"/>} productTitle="Coldchain Monitoring" profileMenu={[]}/>
                 <TabGroup selectedIndex={this.state.currentTab}>
                     <Tab id="overview-tab" title=" Overview" glyph="overview-chart">
