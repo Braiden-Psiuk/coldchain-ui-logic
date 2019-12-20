@@ -177,7 +177,8 @@ import {
 import {
     DonutChart,
     MicroBarChart,
-    PieChart
+    PieChart,
+    LineChart
 } from "@ui5/webcomponents-react-charts";
 
 // Import Google Map components
@@ -240,9 +241,67 @@ export default class App extends React.Component {
                     lng: -33.747521
                 },
                 zoom: 3
-            }
+            },
+            palletPicker: {
+                currentlySelectedPallet: "smart_pallet_1"
+            },
+            chartData: [] // Stores chart data for all pallets, including temperature and time histories since page was loaded
         };
     }
+
+
+
+    // chartData state array format:
+
+    // [
+    //     {
+    //       "smart_pallet_1": {
+    //         "history": [
+    //           {
+    //             "temperature": 34,
+    //             "time": "8:04pm"
+    //           },
+    //           {
+    //             "temperature": 35,
+    //             "time": "8:05pm"
+    //           }
+    //         ]
+    //       }
+    //     },
+    //     {
+    //       "smart_pallet_2": {
+    //         "history": [
+    //           {
+    //             "temperature": 34,
+    //             "time": "8:04pm"
+    //           },
+    //           {
+    //             "temperature": 35,
+    //             "time": "8:05pm"
+    //           }
+    //         ]
+    //       }
+    //     }
+    //   ]
+
+
+
+    // Need to append the following:
+
+    // {
+    //   "smart_pallet_1": {
+    //     "history": [
+    //       {
+    //         "temperature": 34,
+    //         "time": "8:04pm"
+    //       },
+    //       {
+    //         "temperature": 35,
+    //         "time": "8:05pm"
+    //       }
+    //     ]
+    //   }
+    // }
 
     componentDidMount = ()=> {
         // console.log("App component mounted!");
@@ -489,13 +548,26 @@ export default class App extends React.Component {
                                                     <Select
                                                         disabled={false}
                                                         valueState={null}
+                                                        onChange={(passMeIn)=>{
+                                                            this.setState({
+                                                                mapControls: {
+                                                                    center: {
+                                                                        lat: 0,
+                                                                        lng: 0
+                                                                    },
+                                                                    zoom: this.state.mapControls.zoom
+                                                                }
+                                                            });
+                                                            console.log(passMeIn.parameters.selectedOption.innerText+" selected from picker!");
+                                                        }}
                                                     >
-                                                        <Option icon="sap-icon://add">Pallet 1</Option>
-                                                        <Option icon="sap-icon://add">Pallet 2</Option>
-                                                        <Option icon="sap-icon://add">Pallet 3</Option>
+                                                        {this.state.palletData.map((pallet)=>
+                                                            <Option key={pallet["Devicetitle"]}>{pallet["Devicetitle"]}</Option>
+                                                        )}
                                                     </Select>
                                                     <div style={{width: "75%"}}></div>
                                                 </div>
+                                                <LineChart labels={[1,2,3]} datasets={[{data: [28,32,39], label: "Temperature"}]} valueAxisFormatter={(d) => `${d}℉`} categoryAxisFormatter={(d) => `${d}min`}/>
                                             </Panel.Body>
                                         </Panel>
                                     </LayoutGrid>
