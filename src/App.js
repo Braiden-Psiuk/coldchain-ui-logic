@@ -169,8 +169,10 @@ import {
     ValueState, // Most likely won't use this!
     AnalyticalCard,
     AnalyticalCardHeader,
-    // Button, // Don't import Button from here, it will conflict with fundamental-react buttons!
-    TextAlign
+    // Button, // Don't import Button from here! It will conflict with fundamental-react buttons!
+    TextAlign,
+    Select,
+    Option
 } from "@ui5/webcomponents-react";
 import {
     DonutChart,
@@ -335,7 +337,6 @@ export default class App extends React.Component {
     render() {
         return (
             <ThemeProvider>
-                <p>{moment.duration(1, "year").toISOString()}</p>
                 <Shellbar logo={<img alt="SAP" src="//unpkg.com/fundamental-styles/dist/images/sap-logo.png"/>} productTitle="Coldchain Monitoring" profileMenu={[]}/>
                 <TabGroup selectedIndex={this.state.currentTab}>
                     <Tab id="overview-tab" title=" Overview" glyph="overview-chart">
@@ -440,7 +441,7 @@ export default class App extends React.Component {
                                                 <h3>Total Time Out of Refrigeration</h3>
                                             </Panel.Header>
                                             <Panel.Body>
-                                                <PieChart height={380} minHeight={50} minWidth={50}
+                                                <DonutChart height={380} minHeight={50} minWidth={50}
                                                     labels={["Total Time Out of Refrigeration", "Total Time In Refrigeration"]}
                                                     datasets={[{data: [3, 97]}]}
                                                     valueAxisFormatter={(d)=>`${d}%`}
@@ -479,6 +480,22 @@ export default class App extends React.Component {
                                                 {/* <div><p style={{float: "left"}}>Pallet 1:</p><pre style={{float: "left"}}>{" "}</pre><ProgressIndicator percentValue={(debug_temperature_degrees_1/DANGER_VALUE_MAX)*100} state={this.setProgressIndicatorColor(debug_temperature_degrees_1)} displayValue={<p>{debug_temperature_degrees_1}&deg;F</p>}/></div><br/>
                                                 <div><p style={{float: "left"}}>Pallet 1:</p><pre style={{float: "left"}}>{" "}</pre><ProgressIndicator percentValue={(debug_temperature_degrees_2/DANGER_VALUE_MAX)*100} state={this.setProgressIndicatorColor(debug_temperature_degrees_2)} displayValue={<p>{debug_temperature_degrees_2}&deg;F</p>}/></div><br/>
                                                 <div><p style={{float: "left"}}>Pallet 1:</p><pre style={{float: "left"}}>{" "}</pre><ProgressIndicator percentValue={(debug_temperature_degrees_3/DANGER_VALUE_MAX)*100} state={this.setProgressIndicatorColor(debug_temperature_degrees_3)} displayValue={<p>{debug_temperature_degrees_3}&deg;F</p>}/></div><br/> */}
+                                            </Panel.Body>
+                                        </Panel>
+                                        <Panel colSpan={3}>
+                                            <Panel.Body>
+                                                <h2>Monitor your Pallets</h2>
+                                                <div style={{display: "flex", flexWrap: "nowrap", backgroundColor: "LIGHTYELLOW"}}>
+                                                    <Select
+                                                        disabled={false}
+                                                        valueState={null}
+                                                    >
+                                                        <Option icon="sap-icon://add">Pallet 1</Option>
+                                                        <Option icon="sap-icon://add">Pallet 2</Option>
+                                                        <Option icon="sap-icon://add">Pallet 3</Option>
+                                                    </Select>
+                                                    <div style={{width: "75%"}}></div>
+                                                </div>
                                             </Panel.Body>
                                         </Panel>
                                     </LayoutGrid>
