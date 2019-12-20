@@ -302,6 +302,9 @@ export default class App extends React.Component {
     //     ]
     //   }
     // }
+    //
+    // (Minified):
+    // {"smart_pallet_1":{"history":[{"temperature":34,"time":"8:04pm"},{"temperature":35,"time":"8:05pm"}]}}
 
     componentDidMount = ()=> {
         // console.log("App component mounted!");
@@ -321,8 +324,12 @@ export default class App extends React.Component {
             const results = JSON.parse(xhr.responseText).d.results;
             // console.log(results);
             let microBarChartData = [];
+            let chartData = [];
             for (let pallet of results) {
-                microBarChartData.push({label: pallet["Deviceid"], value: pallet["Kpivalue"]}) // [{label: "Pallet 1", value: 10}]
+                microBarChartData.push({label: pallet["Deviceid"], value: pallet["Kpivalue"]}); // [{label: "Pallet 1", value: 10}]
+                // chartData.push({pallet["Deviceid"]:{"history":[{"temperature":34,"time":"8:04pm"},{"temperature":35,"time":"8:05pm"}]}});
+                // chartData.push({[pallet["Deviceid"]]:{"history":[{"temperature":34,"time":"8:04pm"},{"temperature":35,"time":"8:05pm"}]}});
+                // pallet["Deviceid"]["history"].push();
             }
             microBarChartData.push({label: "FIXED_LENGTH_DATAPOINT", value: DANGER_VALUE_MAX});
             // console.warn(microBarChartData);
@@ -330,6 +337,7 @@ export default class App extends React.Component {
             this.setState({
                 palletData: results,
                 microBarChartData: microBarChartData,
+                chartData: chartData,
                 isPageLoading: false
             });
             // this.removeLoadingIndicators();
@@ -544,7 +552,7 @@ export default class App extends React.Component {
                                         <Panel colSpan={3}>
                                             <Panel.Body>
                                                 <h2>Monitor your Pallets</h2>
-                                                <div style={{display: "flex", flexWrap: "nowrap", backgroundColor: "LIGHTYELLOW"}}>
+                                                <div style={{display: "flex", flexWrap: "nowrap", backgroundColor: "LIGHTYELLOW", border: "2px dotted black"}}>
                                                     <Select
                                                         disabled={false}
                                                         valueState={null}
@@ -567,7 +575,12 @@ export default class App extends React.Component {
                                                     </Select>
                                                     <div style={{width: "75%"}}></div>
                                                 </div>
-                                                <LineChart labels={[1,2,3]} datasets={[{data: [28,32,39], label: "Temperature"}]} valueAxisFormatter={(d) => `${d}℉`} categoryAxisFormatter={(d) => `${d}min`}/>
+                                                <LineChart
+                                                    labels={[1,2,3]}
+                                                    datasets={[{data: [28,32,39], label: "Temperature (℉)"}]}
+                                                    valueAxisFormatter={(d) => `${d}`}
+                                                    // categoryAxisFormatter={(d) => `${d}min`}
+                                                />
                                             </Panel.Body>
                                         </Panel>
                                     </LayoutGrid>
