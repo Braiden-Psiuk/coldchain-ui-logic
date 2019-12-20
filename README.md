@@ -23,6 +23,7 @@ npm start
 npm i react-scripts@2.1.8
 npm start
 ```
+There is an issue pertaining to the current release of the react-scripts npm package. This fix is only a temporary workaround.
 Optionally, here's a Bash one-liner that sets up everything for you:
 ```bash
 git clone https://github.com/Braiden-Psiuk/coldchain-ui.git && cd coldchain-ui && npm i && npm start
