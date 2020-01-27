@@ -1,6 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import * as _ from "lodash";
+import * as Faker from "faker";
 
 import {
   Shellbar as FundamentalShellbar,
@@ -35,35 +36,93 @@ let deviceResponseData;
 let dummyPalletAlertResponseData=[];
 let dummyPalletDeviceResponseData=[];
 
+const randomString = (length, chars)=> {
+    let result = "";
+    for (let i=length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
+
+let dummyPallets=[];
+for (let i=0; i<numberOfDummyPallets; i++) {
+    dummyPallets.push({
+        "alertData": {
+            "Time": new Date().toLocaleTimeString(),
+            "Bridgeevent": "0000000314",
+            "Tor": 10,
+            "Orgin": 0,
+            "Kpiuom": "F",
+            "Kpivalue": 45,
+            "Kpithreshold": 40,
+            "Kpiprevious1": 57,
+            "Kpiprevious2": 57,
+            "Kpiprevious3": 101,
+            "Kpiprevious4": 101,
+            "Kpiprevious5": 57,
+            "Kpiprevious6": 57,
+            "Kpiprevious7": 57,
+            "Deviceid": `smart_pallet_${i+2}`,
+            "Deviceguid": randomString(32, "0123456789abcdefghijklmnopqrstuvwxyz"),
+            "Devicetitle": `smart_pallet_${i+2}`,
+            "Deviceheadername": "Device ID",
+            "Deviceheadervalue": `smart_pallet_${i+2}`,
+            "Deviceheadername2": "Handling Unit ID",
+            "Deviceheadervalue2": randomString(18, "0123456789"),
+            "Deliveryguid": Faker.random.uuid(),
+            "Deliveryheadername3": "Delivery ID",
+            "Deliveryheadervalue3": randomString(8, "0123456789"),
+            "Deliverybodyname": "Affected Customer",
+            "Deliverybodyvalue": Faker.company.companyName(),
+            "Deliverybodyname2": "Contact",
+            "Deliverybodyvalue2": Faker.name.firstName()+" "+Faker.name.lastName(),
+            "Shipmentguid": Faker.random.uuid(),
+            "Shipmentname": "Shipment ID",
+            "Shipmentvalue": " 000000"+_.random(1000, 2000),
+            "Shipmentsubtitle": "1 Remaining Delivery"
+        },
+        "deviceData": {
+            "Thingid": "8EA3F47F93444CD1B47432C936A7D895",
+            "Tor": "0 mins",
+            "Lasttimeinfridge": "2019-10-25T20:10:35.214Z",
+            "Temperature": "36",
+            "Currenttime": "2019-10-25T20:30:15.394Z",
+            "Deviceguid": "934bd5c8f20a42e4a7bb187f68bb650a",
+            "Handlingunitid": "6100056700000018212",
+            "Locationstatus": "In Refrigeration"
+        }
+    });
+}
+
+console.log(dummyPallets);
+
 // Define variable to hold the generated temperatures for the dummy pallets
-let dummyTemps=[];
+// let dummyTemps=[];
 
 // Add an authorization header (containing the METDEMO auth) to all outbound GET requests
 Axios.defaults.headers.get["Authorization"] = "Basic STg2MTY0ODoxMkdvb2dsZUA0";
 
-const setIntervaldummyTemps = palletIndex => {
-    dummyTemps[palletIndex] = _.random(26, 39.99);
-    dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
-    setInterval(()=>{
-        if (dummyTemps[palletIndex] <= 32) {
-            dummyTemps[palletIndex]+=_.random(0.99,1.99);
-            dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
-        } else if (dummyTemps[palletIndex] >= 42) {
-            dummyTemps[palletIndex]+=_.random(-0.99,-1.99);
-            dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
-        } else {
-            dummyTemps[palletIndex]+=_.random(-1.99,1.99);
-            dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
-        }
-    }, dummyPalletUpdateInterval);
-};
+// const setIntervaldummyTemps = palletIndex => {
+//     dummyTemps[palletIndex] = _.random(26, 39.99);
+//     dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
+//     setInterval(()=>{
+//         if (dummyTemps[palletIndex] <= 32) {
+//             dummyTemps[palletIndex]+=_.random(0.99,1.99);
+//             dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
+//         } else if (dummyTemps[palletIndex] >= 42) {
+//             dummyTemps[palletIndex]+=_.random(-0.99,-1.99);
+//             dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
+//         } else {
+//             dummyTemps[palletIndex]+=_.random(-1.99,1.99);
+//             dummyTemps[palletIndex] = Number(dummyTemps[palletIndex].toFixed(2));
+//         }
+//     }, dummyPalletUpdateInterval);
+// };
 
-for (let i = 0; i < numberOfDummyPallets; i++) {
-    setIntervaldummyTemps(i);
-} setInterval(()=>{
-    console.log(dummyTemps);
-}, dummyPalletUpdateInterval);
-console.log(dummyTemps);
+// for (let i = 0; i < numberOfDummyPallets; i++) {
+//     setIntervaldummyTemps(i);
+// } setInterval(()=>{
+//     console.log(dummyTemps);
+// }, dummyPalletUpdateInterval);
+// console.log(dummyTemps);
 
 export default class App extends React.Component {
     constructor(props) {
