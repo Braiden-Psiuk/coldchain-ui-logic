@@ -20,6 +20,196 @@ import {
   DonutChart as UI5DonutChart
 } from "@ui5/webcomponents-react-charts";
 
+const randomString = (length, chars)=> {
+    let result = "";
+    for (let i=length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
+
+class Pallet {
+    constructor(DeviceId) {
+        this._alertData = {
+            "Time": new Date().toLocaleTimeString(),
+            "Bridgeevent": "0000000314",
+            "Tor": 10,
+            "Orgin": 0,
+            "Kpiuom": "F",
+            "Kpivalue": 45,
+            "Kpithreshold": 40,
+            "Kpiprevious1": 57,
+            "Kpiprevious2": 57,
+            "Kpiprevious3": 101,
+            "Kpiprevious4": 101,
+            "Kpiprevious5": 57,
+            "Kpiprevious6": 57,
+            "Kpiprevious7": 57,
+            // "Deviceid": `smart_pallet_${i+2}`,
+            // "Deviceguid": randomString(32, "0123456789abcdefghijklmnopqrstuvwxyz"),
+            // "Devicetitle": `smart_pallet_${i+2}`,
+            "Deviceheadername": "Device ID",
+            // "Deviceheadervalue": `smart_pallet_${i+2}`,
+            "Deviceheadername2": "Handling Unit ID",
+            // "Deviceheadervalue2": randomString(18, "0123456789"),
+            // "Deliveryguid": Faker.random.uuid(),
+            "Deliveryheadername3": "Delivery ID",
+            // "Deliveryheadervalue3": randomString(8, "0123456789"),
+            "Deliverybodyname": "Affected Customer",
+            // "Deliverybodyvalue": Faker.company.companyName(),
+            "Deliverybodyname2": "Contact",
+            // "Deliverybodyvalue2": Faker.name.firstName()+" "+Faker.name.lastName(),
+            // "Shipmentguid": Faker.random.uuid(),
+            "Shipmentname": "Shipment ID",
+            // "Shipmentvalue": " 000000"+_.random(1000, 2000),
+            "Shipmentsubtitle": "1 Remaining Delivery"
+        };
+        this._deviceData = {
+            "Thingid": "8EA3F47F93444CD1B47432C936A7D895",
+            "Tor": "0 mins",
+            "Lasttimeinfridge": "2019-10-25T20:10:35.214Z",
+            "Temperature": "36",
+            "Currenttime": "2019-10-25T20:30:15.394Z",
+            "Deviceguid": "934bd5c8f20a42e4a7bb187f68bb650a",
+            "Handlingunitid": "6100056700000018212",
+            "Locationstatus": "In Refrigeration"
+        }
+    }
+
+    get DeviceId() {
+        return this._DeviceId;
+    }
+    set DeviceId(DeviceId) {
+        this._DeviceId = DeviceId;
+    }
+}
+
+const numberOfDummyPallets = 5;
+let dummyPallets=[];
+for (let i=0; i<numberOfDummyPallets; i++) {
+    dummyPallets.push(new Pallet(`smart_pallet_${i+2}`));
+}
+dummyPallets.map(dummyPallet => {
+    console.log(dummyPallet.DeviceId);
+});
+
+
+
+
+
+
+"alertData": {
+    "Time": new Date().toLocaleTimeString(),
+    "Bridgeevent": "0000000314",
+    "Tor": 10,
+    "Orgin": 0,
+    "Kpiuom": "F",
+    "Kpivalue": 45,
+    "Kpithreshold": 40,
+    "Kpiprevious1": 57,
+    "Kpiprevious2": 57,
+    "Kpiprevious3": 101,
+    "Kpiprevious4": 101,
+    "Kpiprevious5": 57,
+    "Kpiprevious6": 57,
+    "Kpiprevious7": 57,
+    "Deviceid": `smart_pallet_${i+2}`,
+    "Deviceguid": randomString(32, "0123456789abcdefghijklmnopqrstuvwxyz"),
+    "Devicetitle": `smart_pallet_${i+2}`,
+    "Deviceheadername": "Device ID",
+    "Deviceheadervalue": `smart_pallet_${i+2}`,
+    "Deviceheadername2": "Handling Unit ID",
+    "Deviceheadervalue2": randomString(18, "0123456789"),
+    "Deliveryguid": Faker.random.uuid(),
+    "Deliveryheadername3": "Delivery ID",
+    "Deliveryheadervalue3": randomString(8, "0123456789"),
+    "Deliverybodyname": "Affected Customer",
+    "Deliverybodyvalue": Faker.company.companyName(),
+    "Deliverybodyname2": "Contact",
+    "Deliverybodyvalue2": Faker.name.firstName()+" "+Faker.name.lastName(),
+    "Shipmentguid": Faker.random.uuid(),
+    "Shipmentname": "Shipment ID",
+    "Shipmentvalue": " 000000"+_.random(1000, 2000),
+    "Shipmentsubtitle": "1 Remaining Delivery"
+},
+"deviceData": {
+    "Thingid": "8EA3F47F93444CD1B47432C936A7D895",
+    "Tor": "0 mins",
+    "Lasttimeinfridge": "2019-10-25T20:10:35.214Z",
+    "Temperature": "36",
+    "Currenttime": "2019-10-25T20:30:15.394Z",
+    "Deviceguid": "934bd5c8f20a42e4a7bb187f68bb650a",
+    "Handlingunitid": "6100056700000018212",
+    "Locationstatus": "In Refrigeration"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from "react";
+import Axios from "axios";
+import * as _ from "lodash";
+import * as Faker from "faker";
+
+import {
+  Shellbar as FundamentalShellbar,
+  TabGroup as FundamentalTabGroup,
+  Tab as FundamentalTab,
+  Icon as FundamentalIcon,
+  Button as FundamentalButton,
+  LayoutGrid as FundamentalLayoutGrid,
+  Panel as FundamentalPanel,
+  SearchInput as FundamentalSearchInput
+} from "fundamental-react"; import {
+  ThemeProvider as UI5ThemeProvider,
+  Timeline as UI5Timeline,
+  TimelineItem as UI5TimelineItem
+} from "@ui5/webcomponents-react"; import {
+  DonutChart as UI5DonutChart
+} from "@ui5/webcomponents-react-charts";
+
 // DEBUGGING -----------------
 const pollingEnabled = false;
 // ---------------------------
